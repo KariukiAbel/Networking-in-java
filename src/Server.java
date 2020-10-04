@@ -35,7 +35,8 @@ public class Server extends JFrame {
         setVisible(true);
         }
 
-        //set up and run server
+
+    //set up and run server
     public void runServer(){
         try {
             serverSocket = new ServerSocket(12345, 100); //create ServerSocket
@@ -56,6 +57,29 @@ public class Server extends JFrame {
         }catch (IOException ioException){
             ioException.printStackTrace();
         }
+    }
+
+    //wait for connection then display connection info
+    private void waitForConnection(){
+        displayMessage("Waiting for connection\n");
+        connection = serverSocket.accept(); //allow server to accept connection
+        displayMessage("Connection " + counter + " received from: " + connection.getInetAddress().getHostName());
+    }
+
+    private void getStreams() {
+    }
+
+    private void processConnection() {
+    }
+
+    private void sendData(String actionCommand) {
+    }
+
+    private void closeConnection() {
+    }
+
+    private void displayMessage(String s) {
+        System.out.println(s);
     }
 
 }
