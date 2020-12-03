@@ -98,10 +98,29 @@ public class Server extends JFrame {
     private void setTextFieldEditable(boolean b) {
     }
 
-    private void sendData(String actionCommand) {
+    //send message to client
+    private void sendData(String message) {
+        try { //send object to client
+            outputStream.writeObject("SERVER>>> "+ message);
+            outputStream.flush();
+            displayMessage("\nSERVER>>>  "+ message);
+        } catch (IOException e) {
+            displayArea.append("\nError writing message");
+        }
     }
 
+    //close streams and socket
     private void closeConnection() {
+        displayMessage("\nTerminating connection...\n");
+        setTextFieldEditable(false);
+
+        try {
+            outputStream.close();
+            inputStream.close();
+            connection.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void displayMessage(String s) {
