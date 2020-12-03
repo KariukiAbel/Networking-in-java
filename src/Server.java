@@ -77,7 +77,25 @@ public class Server extends JFrame {
         displayMessage("\nGot I/O streams\n");
     }
 
-    private void processConnection() {
+    //process connection with client
+    private void processConnection() throws IOException {
+        String message = "Connection successful";
+        sendData(message);
+
+        //enable enterfield so server user can send messages
+        setTextFieldEditable(true);
+        do { //process messages sent from client
+            try {
+                message = (String) inputStream.readObject();
+                displayMessage("\n" + message);
+            } catch (ClassNotFoundException classNotFoundException) {
+                displayMessage("\nUnknown object type received ");
+            }
+
+        }while (!message.equals("CLIENT>>> TERMINATE"));
+    }
+
+    private void setTextFieldEditable(boolean b) {
     }
 
     private void sendData(String actionCommand) {
