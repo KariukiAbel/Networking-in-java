@@ -60,13 +60,21 @@ public class Server extends JFrame {
     }
 
     //wait for connection then display connection info
-    private void waitForConnection(){
+    private void waitForConnection() throws IOException {
         displayMessage("Waiting for connection\n");
         connection = serverSocket.accept(); //allow server to accept connection
         displayMessage("Connection " + counter + " received from: " + connection.getInetAddress().getHostName());
     }
 
-    private void getStreams() {
+    //get streams to send abd receive data
+    private void getStreams() throws IOException {
+        //setting up output streams for objects
+        outputStream = new ObjectOutputStream(connection.getOutputStream());
+        outputStream.flush(); //flush output buffer to send header information
+
+        //set up input streams for objects
+        inputStream = new ObjectInputStream(connection.getInputStream());
+        displayMessage("\nGot I/O streams\n");
     }
 
     private void processConnection() {
