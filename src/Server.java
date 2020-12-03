@@ -95,7 +95,15 @@ public class Server extends JFrame {
         }while (!message.equals("CLIENT>>> TERMINATE"));
     }
 
-    private void setTextFieldEditable(boolean b) {
+    //manipulate enterField in the event-dispatch thread
+    private void setTextFieldEditable(final boolean editable) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                enterField.setEditable(editable);
+            }
+        });
+
     }
 
     //send message to client
@@ -123,8 +131,14 @@ public class Server extends JFrame {
         }
     }
 
-    private void displayMessage(String s) {
-        System.out.println(s);
+    //manipulate displayArea in the event-dispatch thread
+    private void displayMessage(final String messageToDisplay) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() { //updates displayArea
+                displayArea.append(messageToDisplay);
+            }
+        });
     }
 
 }
