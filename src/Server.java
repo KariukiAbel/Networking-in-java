@@ -9,8 +9,8 @@ import java.net.Socket;
 public class Server extends JFrame {
     private JTextField enterField;
     private JTextArea displayArea;
-    private ObjectInputStream inputStream; //input stream from client
-    private ObjectOutputStream outputStream; //output stream to client
+    private ObjectInputStream inputStream; //input stream from Client
+    private ObjectOutputStream outputStream; //output stream to Client
     private ServerSocket serverSocket;
     private Socket connection;
     private  int counter = 1; //counter of number of connections
@@ -22,7 +22,7 @@ public class Server extends JFrame {
         enterField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //send message to client
+                //send message to Client
                 sendData(e.getActionCommand());
                 enterField.setText("");
             }
@@ -77,14 +77,14 @@ public class Server extends JFrame {
         displayMessage("\nGot I/O streams\n");
     }
 
-    //process connection with client
+    //process connection with Client
     private void processConnection() throws IOException {
         String message = "Connection successful";
         sendData(message);
 
         //enable enterfield so server user can send messages
         setTextFieldEditable(true);
-        do { //process messages sent from client
+        do { //process messages sent from Client
             try {
                 message = (String) inputStream.readObject();
                 displayMessage("\n" + message);
@@ -106,9 +106,9 @@ public class Server extends JFrame {
 
     }
 
-    //send message to client
+    //send message to Client
     private void sendData(String message) {
-        try { //send object to client
+        try { //send object to Client
             outputStream.writeObject("SERVER>>> "+ message);
             outputStream.flush();
             displayMessage("\nSERVER>>>  "+ message);
